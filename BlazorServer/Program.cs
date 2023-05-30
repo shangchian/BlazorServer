@@ -3,6 +3,11 @@ using BlazorServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient<IBookService, BookService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:44396/");   // ¦b BlazorServer/Properties/
+});
+
 // Customized start
 builder.Services.AddRazorPages();           // DI container
 builder.Services.AddServerSideBlazor();     // DI container

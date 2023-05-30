@@ -15,16 +15,16 @@ builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(str))
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())        // 順序有差別，1st
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();                  // 順序有差別，2nd
 
-app.UseAuthorization();
+app.UseAuthorization();                     // 順序有差別，3rd
 
-app.MapControllers();
+app.MapControllers();                       // 順序有差別，4th
 
 app.Run();
