@@ -6,7 +6,7 @@ namespace BlazorServer.Services
     {
         private static List<Book> books = new()
         {
-                        new Book()
+            new Book()
             {
                 Id = 1,
                 Title = " Essential Programming Language ",
