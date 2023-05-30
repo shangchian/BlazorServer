@@ -1,0 +1,19 @@
+﻿<div class="alert alert-secondary mt-4">
+    <strong> @ShowDate.ToString(DateTimeFormat) </strong>
+</div>
+
+@code {
+    [Parameter]
+    public DateTime ShowDate { get; set; }
+
+    [Parameter]
+    public string DateTimeFormat { get; set; } = "yyyy-MM-dd";
+}
+
+
+
+
+@* Note
+    沒有加路徑的，如@page "/"，就要放在 Shared folder 底下，要使用這個元件的就要去 using，如 Index.razor using ServerTime 範例。
+    Shared folder 的名稱一定要用 Shared 命名。
+*@

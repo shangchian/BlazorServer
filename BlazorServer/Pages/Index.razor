@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1> Welcome </h1>
+<p>
+    Welcome to my blazor app.
+</p>
+
+@* Method 1 *@
+<ServerTime ShowDate="DateTime.Now" DateTimeFormat="MM-dd-yyyy"></ServerTime>
+<ServerTime ShowDate="@DateTime.Now"></ServerTime>
+
+
+@* Method 2
+<div>
+    @{
+        @DateTime.Now;
+    }
+</div>
+*@
+
+@*
+    @using BlazorServer.Shared 可以不用宣告參考，因為已經在 _Imports.rasor 宣告參考了
+*@

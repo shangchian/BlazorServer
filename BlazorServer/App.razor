@@ -1,0 +1,27 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+         <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+
+
+
+
+@* Note
+    自創的文件，檔案名稱不能隨意改
+
+    設定載入指定的 layout: DefaultLayout... 與 LayoutView Layout...
+    或者在
+    _Imports.razer 宣告 @layout ....
+*@
+
+@*
+
+*@

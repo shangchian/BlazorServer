@@ -1,0 +1,31 @@
+﻿@inherits LayoutComponentBase
+
+<header>
+    <NavMenu></NavMenu>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @Body
+    </main>
+</div>
+
+<footer class="bolder-top footer text-muted">
+    <div class="container">
+        All Rights Reserved
+    </div>
+</footer>
+
+
+
+@*
+    1. @inherits LayoutComponentBase 在 layout 的佈局上一定要加
+    2. nav 是引用 bootstrap 的 navbar 樣式，所以要安裝 bootstrap 的函式庫。
+        download bootstrap library
+	    1. 新增 wwwroot 資料夾，這個名稱固定會變成地球的圖示，在該資料夾按右鍵 Add > Client-Side Library...，在 Library 框框裡輸入 bootstrap 會自動跑出版本，修改你需要的版本後，指定下載路徑在"wwwroot/lib/" 即可。
+	    2. 在_Host.cshtml 的 <head> 加入引用 bootstrap 函式庫，在 /wwwroot/lib/bootstrap/css/bootstrap.css/bootstrap.min.css 拖拉到 <head>，只保留 <link... /> 即可，然後把 wwwroot 字串刪掉，因為 ~ 已經代表 wwwroot/ 了，所以路徑應該是 ~/lib/bootstrap/css/bootstrap.css/bootstrap.min.css。
+	    3. 因為是加在 <head>，所以在 MainLayout.razer 的樣式就是加在 <header>
+    3. <footer class="bolder-top footer text-muted"> 的第二個 footer 代表 wwwroot/css/site.css 定義的 footer，就是定義第一個 footer 吃 site.css 的樣式
+
+    4. @Body: 會找到 Pages(有路徑的) 的 razor 來顯示頁面
+*@

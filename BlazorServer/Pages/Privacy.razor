@@ -1,0 +1,44 @@
+﻿@page "/Privacy"
+
+<PageTitle>Privacy</PageTitle>
+<h3>Privacy</h3>
+
+<p>This is Privacy Page</p>
+
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized");
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync");
+        return base.OnInitializedAsync();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet");
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Console.WriteLine("OnParametersSetAsync");
+        return base.OnParametersSetAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("OnAfterRender");
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine("OnAfterRenderAsync");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
