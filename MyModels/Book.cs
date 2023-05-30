@@ -1,4 +1,4 @@
-﻿namespace BlazorServer.Model
+﻿namespace MyModels
 {
     public class Book
     {
