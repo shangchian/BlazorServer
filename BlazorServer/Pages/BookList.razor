@@ -8,6 +8,7 @@
 <h1>BookList</h1>
 <input type="checkbox" id="showAllData" @bind="ShowAllColumn" />
 <label for="showAllData"> Show All Column </label>
+<div>Count: @SelectedCount</div>
 
 @if (Books is null)
 {
@@ -35,13 +36,34 @@ else
         </thead>
         <tbody>
             @foreach( var item in Books ) {
-                <ShowBook Book="item" ShowAll="ShowAllColumn"></ShowBook>
+                <ShowBook Book="item" ShowAll="ShowAllColumn" OnSelected="SelectionChanged"></ShowBook>
             }
         </tbody>
     </table>
 }
 
+
+
+
 @code {
+    public bool ShowAllColumn { get; set; } = true;
+
+    protected int SelectedCount { get; set; } = 0;
+
+    protected void SelectionChanged(bool isSelected)
+    {
+        if (isSelected)
+        {
+            SelectedCount++;
+        }
+        else
+        {
+            SelectedCount--;
+        }
+    }
+
+
+
     protected override void OnInitialized()
     {
         //_logger.LogCritical("Critical - OnInitialized");
@@ -65,7 +87,6 @@ else
         Books = await BookService.GetAllBooks();
     }
 
-    public bool ShowAllColumn { get; set; } = true;
 
 
 

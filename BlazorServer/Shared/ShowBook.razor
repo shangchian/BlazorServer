@@ -1,6 +1,7 @@
 ﻿@if(Book is not null)
 {
     <tr>
+        <input type="checkbox" checked="@IsSelected" @onchange="SelectChanged" />
         <td> @Book.Id </td>
         <td> @Book.Title </td>
         @if (ShowAll)
@@ -23,4 +24,15 @@
 
     [Parameter]
     public bool ShowAll { get; set; } = true;
+
+    [Parameter]
+    public EventCallback<bool> OnSelected { get; set; }
+
+    protected bool IsSelected { get; set; } = false;
+
+    protected async Task SelectChanged(ChangeEventArgs e)
+    {
+        IsSelected = (bool)(e.Value ?? false);
+        await OnSelected.InvokeAsync(IsSelected);
+    }
 }
