@@ -13,7 +13,9 @@
 
 <div class="container">
     <main role="main" class="pb-3">
-        @Body
+        <ErrorBoundary>     <!-- 目的在隱藏詳細錯誤訊息，不讓一般使用者看到 -->
+            @Body
+        </ErrorBoundary>
     </main>
 </div>
 
