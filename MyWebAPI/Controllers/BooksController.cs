@@ -52,8 +52,22 @@ namespace MyWebAPI.Controllers
 
         // POST api/<BooksController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Book>> Post([FromBody] Book book)
         {
+            try
+            {
+                if(book is null)
+                {
+                    return BadRequest();
+                }
+                var b = (await context.Books.AddAsync(book)).Entity;
+                await context.SaveChangesAsync();
+                return CreatedAtAction(nameof(Post), new { id = b.Id }, b);
+            }
+            catch(Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error insert books to database! ");
+            }
         }
 
         // PUT api/<BooksController>/5

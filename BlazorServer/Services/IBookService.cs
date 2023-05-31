@@ -9,5 +9,7 @@ namespace BlazorServer.Services
         Task<Book?> GetBook(int id);
 
         Task UpdateBook(Book updatedBook);
+
+        Task CreateBook(Book book);
     }
 }

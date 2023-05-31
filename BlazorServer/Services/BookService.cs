@@ -31,5 +31,10 @@ namespace BlazorServer.Services
         {
             await client.PutAsJsonAsync($"api/Books/{updatedBook.Id}", updatedBook);
         }
+
+        public async Task CreateBook(Book book)
+        {
+            await client.PostAsJsonAsync($"api/Books/", book);
+        }
     }
 }
