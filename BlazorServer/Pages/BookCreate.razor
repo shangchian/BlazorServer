@@ -1,6 +1,7 @@
 ﻿@page "/create"
 @using Microsoft.AspNetCore.Components.Forms
-
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 <PageTitle> Book Create </PageTitle>
 <h1>BookCreate</h1>
@@ -71,7 +72,15 @@
 
     protected async Task HandleSubmit()
     {
-        await BookService.CreateBook(Book);
-        NavigationManager.NavigateTo("/booklist");  // 只要同意就會跳回上一頁的圖書列表
+        try
+        {
+            await BookService.CreateBook(Book);
+            await JSRuntime.InvokeVoidAsync("saveMessage");
+            NavigationManager.NavigateTo("/booklist");  // 只要同意就會跳回上一頁的圖書列表
+        }
+        catch (Exception)
+        {
+            await JSRuntime.InvokeVoidAsync("errorMessage");
+        }
     }
 }
