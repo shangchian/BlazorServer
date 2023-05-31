@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyModels;
 using MyWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,10 +32,22 @@ namespace MyWebAPI.Controllers
         }
 
         // GET api/<BooksController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Book>> Get(int id)
         {
-            return "value";
+            try
+            {
+                var b = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
+                if( b is null)
+                {
+                    return NotFound();
+                }
+                return b;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error get books from database! ");
+            }
         }
 
         // POST api/<BooksController>

@@ -1,0 +1,79 @@
+﻿@page "/bookdetails/{id:int}"
+
+<PageTilte>Book List</PageTilte>
+<h1>BookDetails</h1>
+
+@if (Book is null)
+{
+    <dir class="d-flex justify-content-center">
+        <div class="spinner-border text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </dir>
+}
+else
+{
+    <div>
+        <dl class="row">
+            <dt class="col-sm-4">
+                Title
+            </dt>
+            <dd class="col-sm-8">
+                @Book.Title
+            </dd>
+            <dt class="col-sm-4">
+                Price
+            </dt>
+            <dd class="col-sm-8">
+                @Book.Price
+            </dd>
+            <dt class="col-sm-4">
+                PublishDate
+            </dt>
+            <dd class="col-sm-8">
+                @Book.PublishDate
+            </dd>
+            <dt class="col-sm-4">
+                InStock
+            </dt>
+            <dd class="col-sm-8">
+                @Book.InStock
+            </dd>
+            <dt class="col-sm-4">
+                Description
+            </dt>
+            <dd class="col-sm-8">
+                @Book.Description
+            </dd>
+        </dl>
+    </div>
+}
+
+<a href="/booklist" class="btn btn-primary m-1"> Back to List </a>
+
+
+@Id
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    public Book? Book { get; set; }
+
+    [Inject]
+    public BlazorServer.Services.IBookService BookService { get; set; } = null!;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Book = await BookService.GetBook(Id) ?? new Book();
+    }
+
+}
+
+
+
+@*
+    @page "/bookdetails/{id?}" : 問號代表 optional
+
+    @Id : 印出 Id 參數
+
+*@

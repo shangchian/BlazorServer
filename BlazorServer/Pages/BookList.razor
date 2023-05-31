@@ -37,6 +37,9 @@ else
                     <td> @item.PublishDate </td>
                     <td> @item.InStock </td>
                     <td> @item.Description </td>
+                    <td>
+                    <a href="@($"/bookdetails/{item.Id}")" class="btn btn-primary m-1"> Detials </a>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -14,5 +14,17 @@ namespace BlazorServer.Services
         {
             return await client.GetFromJsonAsync<List<Book>>("api/Books") ?? Enumerable.Empty<Book>();
         }
+
+        public async Task<Book?> GetBook(int id)
+        {
+            try
+            {
+                return await client.GetFromJsonAsync<Book>("api/Books/{id}");
+            }
+            catch(Exception)
+            {
+                return default;
+            }
+        }
     }
 }
