@@ -58,8 +58,31 @@ namespace MyWebAPI.Controllers
 
         // PUT api/<BooksController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Book>> Put(int id, [FromBody] Book book)
         {
+            try
+            {
+                if(id != book.Id)
+                {
+                    return BadRequest("Id is not the same.");
+                }
+                var b = await context.Books.FirstOrDefaultAsync(b => b.Id == book.Id);
+                if(b is null)
+                {
+                    return NotFound($"Book id{id} is not found.");
+                }
+                b.Title = book.Title;
+                b.Price = book.Price;
+                b.InStock  = book.InStock;
+                b.PublishDate = book.PublishDate;
+                b.Description = book.Description;
+                await context.SaveChangesAsync();
+                return b;
+            } 
+            catch(Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Update error! ");
+            }
         }
 
         // DELETE api/<BooksController>/5

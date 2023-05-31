@@ -26,5 +26,10 @@ namespace BlazorServer.Services
                 return default;
             }
         }
+
+        public async Task UpdateBook(Book updatedBook)
+        {
+            await client.PutAsJsonAsync($"api/Books/{updatedBook.Id}", updatedBook);
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace BlazorServer.Services
         Task<IEnumerable<Book>> GetAllBooks();
 
         Task<Book?> GetBook(int id);
+
+        Task UpdateBook(Book updatedBook);
     }
 }
