@@ -19,7 +19,7 @@ namespace BlazorServer.Services
         {
             try
             {
-                return await client.GetFromJsonAsync<Book>("api/Books/{id}");
+                return await client.GetFromJsonAsync<Book>($"api/Books/{id}");
             }
             catch(Exception)
             {

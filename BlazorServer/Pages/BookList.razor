@@ -6,6 +6,8 @@
 
 <PageTitle> BookList </PageTitle>
 <h1>BookList</h1>
+<input type="checkbox" id="showAllData" @bind="ShowAllColumn" />
+<label for="showAllData"> Show All Column </label>
 
 @if (Books is null)
 {
@@ -22,25 +24,18 @@ else
             <tr>
                 <th> Id </th>
                 <th> Title </th>
-                <th> Price </th>
-                <th> PublishDate </th>
-                <th> InStock </th>
-                <th> Description </th>
+                @if (ShowAllColumn)
+                {
+                    <th> Price </th>
+                    <th> PublishDate </th>
+                    <th> InStock </th>
+                    <th> Description </th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach( var item in Books ) {
-                <tr>
-                    <td> @item.Id </td>
-                    <td> @item.Title </td>
-                    <td> @item.Price </td>
-                    <td> @item.PublishDate </td>
-                    <td> @item.InStock </td>
-                    <td> @item.Description </td>
-                    <td>
-                    <a href="@($"/bookdetails/{item.Id}")" class="btn btn-primary m-1"> Detials </a>
-                    </td>
-                </tr>
+                <ShowBook Book="item" ShowAll="ShowAllColumn"></ShowBook>
             }
         </tbody>
     </table>
@@ -69,6 +64,16 @@ else
         // await Task.Run(LoadData);                // 改成 Service 就不需要
         Books = await BookService.GetAllBooks();
     }
+
+    public bool ShowAllColumn { get; set; } = true;
+
+
+
+
+
+
+
+
 
     /* 改成 Service 就不需要
     private void LoadData()

@@ -1,0 +1,26 @@
+﻿@if(Book is not null)
+{
+    <tr>
+        <td> @Book.Id </td>
+        <td> @Book.Title </td>
+        @if (ShowAll)
+        {
+            <td> @Book.Price </td>
+            <td> @Book.PublishDate </td>
+            <td> @Book.InStock </td>
+            <td> @Book.Description </td>
+        }
+        <td>
+            <a href="@($"/bookdetails/{Book.Id}")" class="btn btn-primary m-1"> Detials </a>
+        </td>
+    </tr>
+}
+
+
+@code {
+    [Parameter]
+    public Book? Book { get; set; }
+
+    [Parameter]
+    public bool ShowAll { get; set; } = true;
+}
