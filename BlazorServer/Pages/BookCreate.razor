@@ -12,7 +12,7 @@
             <ValidationSummary />
             <div class="mb-3">
                 <label for="Title" class="form-label">Title</label>
-                <InputText id="Title" @bind-Value="Book.Title" class="form-control" />
+                <InputText @ref="txtTitleReference" id="Title" @bind-Value="Book.Title" class="form-control" />
                 <ValidationMessage For="@(() => Book.Title)" />
             </div>
             <div class="mb-3">
@@ -98,6 +98,15 @@
         if (!confirmed)
         {
             context.PreventNavigation();
+        }
+    }
+
+    InputText txtTitleReference = null!;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && txtTitleReference.Element != null)
+        {
+            await txtTitleReference.Element.Value.FocusAsync();
         }
     }
 }
