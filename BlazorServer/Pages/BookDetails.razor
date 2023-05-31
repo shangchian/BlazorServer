@@ -2,6 +2,9 @@
 @page "/bookdetails"
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
+@inject IToastService ToastService
+
+
 
 <PageTitle> Book Details </PageTitle>
 <h1>BookDetails</h1>
@@ -80,6 +83,7 @@ else
         if(Book is not null && confirmed)
         {
             await BookService.DeleteBook(Id);
+            ToastService.ShowSuccess($"{Book.Id} - {Book.Title} delete successfully!");
             NavigationManager.NavigateTo("/booklist");
         }
     }

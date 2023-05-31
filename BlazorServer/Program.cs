@@ -1,9 +1,11 @@
 using BlazorServer.Services;
+using Blazored.Toast;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Customized start
+builder.Services.AddBlazoredToast();        // BlazoredToast 通知元件
 builder.Services.AddRazorPages();           // DI container
 builder.Services.AddServerSideBlazor();     // DI container
 builder.Services.AddScoped<IBookService, BookService>();    // DI container，註冊自定義服務，取得書籍資料
