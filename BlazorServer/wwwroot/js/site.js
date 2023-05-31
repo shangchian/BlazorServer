@@ -1,9 +1,20 @@
 ﻿function saveMessage(){
-    alert ("Save successfully!")
+    //alert ("Save successfully!")
+    Swal.fire(
+        'Info!',
+        'Save successfully',
+        'success'
+    )
 }
 
 function errorMessage(){
-    alert("Save error!")
+    //alert("Save error!")
+    Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+    })
 }
 
 
