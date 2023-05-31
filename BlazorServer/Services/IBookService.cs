@@ -11,5 +11,7 @@ namespace BlazorServer.Services
         Task UpdateBook(Book updatedBook);
 
         Task CreateBook(Book book);
+
+        Task DeleteBook(int id);
     }
 }

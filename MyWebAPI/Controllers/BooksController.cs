@@ -101,8 +101,23 @@ namespace MyWebAPI.Controllers
 
         // DELETE api/<BooksController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Book>> Delete(int id)
         {
+            try
+            {
+                var b = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
+                if (b is null)
+                {
+                    return NotFound($"Book id{id} is not found.");
+                }
+                context.Books.Remove(b);
+                await context.SaveChangesAsync();
+                return b;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error delete book from database! ");
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿@page "/bookdetails/{id:int}"
+@page "/bookdetails"
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 <PageTitle> Book Details </PageTitle>
 <h1>BookDetails</h1>
@@ -49,6 +52,7 @@ else
     </div>
 }
 
+<button class="btn btn-danger"type="button" @onclick="Delete_Click">Delete</button>
 <a href="/booklist" class="btn btn-primary m-1"> Back to List </a>
 
 
@@ -67,6 +71,18 @@ else
         Book = await BookService.GetBook(Id) ?? new Book();
     }
 
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
+    protected async void Delete_Click()
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if(Book is not null && confirmed)
+        {
+            await BookService.DeleteBook(Id);
+            NavigationManager.NavigateTo("/booklist");
+        }
+    }
 }
 
 

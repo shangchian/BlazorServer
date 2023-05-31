@@ -36,5 +36,10 @@ namespace BlazorServer.Services
         {
             await client.PostAsJsonAsync($"api/Books/", book);
         }
+
+        public async Task DeleteBook(int id)
+        {
+            await client.DeleteAsync($"api/Books/{id}");
+        }
     }
 }
