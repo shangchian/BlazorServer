@@ -47,6 +47,14 @@
 
 
 
+@if (!string.IsNullOrEmpty(Book.Title))
+{
+    <NavigationLock OnBeforeInternalNavigation="ReallyLeave" />
+}
+
+
+
+
 
 @code {
     public Book Book { get; set; } = new Book();
@@ -81,6 +89,15 @@
         catch (Exception)
         {
             await JSRuntime.InvokeVoidAsync("errorMessage");
+        }
+    }
+
+    async Task ReallyLeave(LocationChangingContext context)
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Areyou sure you wanna leave?");
+        if (!confirmed)
+        {
+            context.PreventNavigation();
         }
     }
 }
