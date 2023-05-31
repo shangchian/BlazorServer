@@ -36,6 +36,7 @@ else
         </thead>
         <tbody>
             @foreach( var item in Books ) {
+                <!-- Book, ShowAll, OnSelected 是 ShowBook.razor 參數，ShowBook.razor 是 child，BookList 是 parant，child 的參數取自 Parent 的值時，要加 [Parameter] -->
                 <ShowBook Book="item" ShowAll="ShowAllColumn" OnSelected="SelectionChanged"></ShowBook>
             }
         </tbody>
