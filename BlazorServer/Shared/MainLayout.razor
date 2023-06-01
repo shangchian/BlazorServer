@@ -19,11 +19,17 @@
     </main>
 </div>
 
-<footer class="bolder-top footer text-muted">
-    <div class="container">
-        All Rights Reserved
-    </div>
-</footer>
+<CascadingValue Value="@Description">
+    <MyFooter></MyFooter>
+</CascadingValue>
+
+
+
+@code{
+    public string Description { get; set; } = "2023 - All Rights Reserved";
+}
+
+
 
 
 
