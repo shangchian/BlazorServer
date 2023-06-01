@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IConfiguration Configuration
 
 <PageTitle>Index</PageTitle>
 
@@ -6,6 +7,17 @@
 <p>
     Welcome to my blazor app.
 </p>
+
+<div class="text-center">
+    <div class="p-2 mb-2 mt-2 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">@Configuration["WebsiteConfig:Welcome"]</h1>
+            <p> @Configuration["WebsiteConfig:SubTitle"] </p>
+            <img class="img-fluid w-25" src="images/cat_cupid.png" alt="...">
+        </div>
+    </div>
+</div>
+
 
 @* Method 1 *@
 <ServerTime ShowDate="DateTime.Now" DateTimeFormat="MM-dd-yyyy"></ServerTime>
