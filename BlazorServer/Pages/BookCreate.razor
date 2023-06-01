@@ -1,4 +1,5 @@
 ﻿@page "/create"
+@attribute [Authorize(Roles = "Administrator")]
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime

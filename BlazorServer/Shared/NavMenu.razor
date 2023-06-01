@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-expand-lg bg-light">
+﻿@using BlazorServer.Authentication
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthProvider
+
+
+<nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <span class="oi oi-basket"></span>
@@ -16,22 +21,40 @@
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All"> Home </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="Booklist"> Books </NavLink>
+                    <NavLink class="nav-link" href="booklist"> Books </NavLink>
+                </li>
+                <AuthorizeView Roles="Administrator">
+                    <Authorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="create">
+                                Create
+                            </NavLink>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="filemanager"> FileUpload </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="Create"> Create </NavLink>
+                    <NavLink class="nav-link" href="privacy"> Privacy </NavLink>
                 </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="FileManager"> FileUpload </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="Privacy"> Privacy </NavLink>
-                </li>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login"> Login </a>
+                        </li>
+                    </NotAuthorized>
+                    <Authorized>
+                        <li class="nav-item">
+                            <a @onclick="Logout"
+                               class="nav-link" href="javascript:void(0)"> Logout </a>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
             </ul>
         </div>
     </div>
 </nav>
-
 
 
 @code {
@@ -42,6 +65,13 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task Logout()
+    {
+        var p = (MyAuthenticationStateProvider)AuthProvider;
+        await p.UpdateState(null!);
+        NavigationManager.NavigateTo("./", true);
     }
 }
 

@@ -1,6 +1,8 @@
 using BlazorServer.Services;
 using Blazored.Toast;
-
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.Authorization;
+using BlazorServer.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,10 @@ builder.Services.AddHttpClient<ICategoryService, CategoryService>(client =>
 {
     client.BaseAddress = new Uri(WebApiBaseAddress ?? "https://localhost:44396/");   // ¦b MyWebAPI/Properties/launchSettings.json > iisSettings, https > 44396, http > 19318
 });
+
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddScoped<AuthenticationStateProvider, MyAuthenticationStateProvider>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

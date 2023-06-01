@@ -3,15 +3,23 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1> Welcome </h1>
-<p>
-    Welcome to my blazor app.
-</p>
+<HeadContent>
+    <meta name="description" content="My sweet home page!" />
+    <meta name="author" content="mary" />
+</HeadContent>
 
 <div class="text-center">
     <div class="p-2 mb-2 mt-2 bg-light rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">@Configuration["WebsiteConfig:Welcome"]</h1>
+            <AuthorizeView>
+                <Authorized>
+                    <h1> @context.User?.Identity?.Name ! </h1>
+                </Authorized>
+                <NotAuthorized>
+                    <h1> Guest! </h1>
+                </NotAuthorized>
+            </AuthorizeView>
             <p> @Configuration["WebsiteConfig:SubTitle"] </p>
             <img class="img-fluid w-25" src="images/cat_cupid.png" alt="...">
         </div>
