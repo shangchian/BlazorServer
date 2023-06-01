@@ -37,7 +37,9 @@ namespace MyWebAPI.Controllers
         {
             try
             {
-                var b = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
+                var b = await context.Books
+                    .Include(b => b.Category)
+                    .FirstOrDefaultAsync(b => b.Id == id);
                 if( b is null)
                 {
                     return NotFound();
