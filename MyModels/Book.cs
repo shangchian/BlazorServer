@@ -16,6 +16,6 @@ namespace MyModels
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} must be between {1} - {2}")]
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = null!;
+        public Category? Category { get; set; } = null!;
     }
 }

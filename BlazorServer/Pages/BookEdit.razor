@@ -30,6 +30,20 @@
                 <label for="Description" class="form-label">Description</label>
                 <InputText id="Description" @bind-Value="Book.Description" class="form-control" />
             </div>
+
+            <div class="mb-3">
+                <label for="Category" class="control-label">Category</label>
+                @if (Categories != null)
+                {
+                    <InputSelect id="Category" @bind-Value="Book.CategoryId" class="form-control">
+                        @foreach (var cat in Categories)
+                        {
+                            <option value="@cat.CategoryId">@cat.CategoryName</option>
+                        }
+                    </InputSelect>
+                }
+            </div>
+
             <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a href="/booklist" class="btn btn-primary m-1"> Back to List</a>
@@ -48,10 +62,14 @@
 
 
 @code {
+    public IEnumerable<Category> Categories { get; set; } = null!;
+
+    [Inject]
+    public BlazorServer.Services.ICategoryService CategoryService { get; set; } = default!;
+
     [Parameter]
     public int Id { get; set; }
     public Book Book { get; set; } = new Book();
-
 
     [Inject]
     public BlazorServer.Services.IBookService BookService { get; set; } = default!;
@@ -59,13 +77,16 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
+
     protected async override Task OnInitializedAsync()
     {
+        Categories = await CategoryService.GetAllCategories();
         Book = await BookService.GetBook(Id) ?? new Book();
     }
 
     protected async Task HandleSubmit()
     {
+        Book.Category = null;
         await BookService.UpdateBook(Book);
         NavigationManager.NavigateTo("/booklist");  // 只要同意就會跳回上一頁的圖書列表
     }

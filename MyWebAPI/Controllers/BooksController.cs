@@ -92,6 +92,7 @@ namespace MyWebAPI.Controllers
                 b.InStock  = book.InStock;
                 b.PublishDate = book.PublishDate;
                 b.Description = book.Description;
+                b.CategoryId = book.CategoryId;
                 await context.SaveChangesAsync();
                 return b;
             } 
