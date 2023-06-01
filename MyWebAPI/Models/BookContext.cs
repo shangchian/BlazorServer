@@ -14,9 +14,16 @@ namespace MyWebAPI.Models
 
         public DbSet<Category> Categories { get; set; } = null!;
 
+        public DbSet<WebUser> WebUsers { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<WebUser>().HasData(
+                new WebUser { Id = 1, UserName = "admin", Password = "111", Role = "Administrator" },
+                new WebUser { Id = 2, UserName = "user", Password = "111", Role = "User" }
+            );
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, CategoryName = "Computers" },
