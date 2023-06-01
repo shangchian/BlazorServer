@@ -9,9 +9,20 @@
 
 
 @code {
+    [CascadingParameter]
+    public Error? Error { get; set; }
+
     protected override void OnInitialized()
     {
-        Console.WriteLine("OnInitialized");
+        try
+        {
+            Console.WriteLine("OnInitialized");
+            throw new Exception("ExceptionError");
+        }
+        catch(Exception ex)
+        {
+            Error?.ProcessError(ex);
+        }
     }
 
     protected override Task OnInitializedAsync()
