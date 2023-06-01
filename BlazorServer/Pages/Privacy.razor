@@ -1,4 +1,5 @@
 ﻿@page "/Privacy"
+@inject IToastService ToastService
 
 <PageTitle>Privacy</PageTitle>
 <h3>Privacy</h3>
@@ -22,6 +23,7 @@
         catch(Exception ex)
         {
             Error?.ProcessError(ex);
+            ToastService.ShowError($"發生錯誤! 請洽管理員! {ex.Message}");
         }
     }
 
