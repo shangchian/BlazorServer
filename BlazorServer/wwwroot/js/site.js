@@ -23,7 +23,7 @@ function download(base64String, fileName) {
         .then(resp => resp.blob())
         .then(blob => {
             var anchor = window.document.createElement("a");
-            anchor.href = windows.URL.createObjectURL(blob, { type: "image/png" });
+            anchor.href = window.URL.createObjectURL(blob, { type: "image/png" });
             anchor.download = fileName;
             document.body.appendChild(anchor);
             anchor.click();
