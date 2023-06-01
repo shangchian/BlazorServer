@@ -1,0 +1,32 @@
+﻿@page "/filemanager"
+
+
+<PageTitle> FileManager</PageTitle>
+
+<div class="d-flex justify-content-center">
+    <h1> File Upload/Download </h1>
+</div>
+<div class="container">
+    <div class="m-4 d-flex justify-content-center">
+        <img src="@ImageDataUrl" style="width: 250px; height: 250px;" />
+    </div>
+    <div class="m-4 d-flex justify-content-center">
+        <InputFile OnChange="@OnChanged"></InputFile>
+    </div>
+</div>
+
+
+@code {
+    IBrowserFile? SelectedFile { get; set; }
+    public string ImageDataUrl { get; set; } = null!;
+
+    private async Task OnChanged(InputFileChangeEventArgs args)
+    {
+        SelectedFile = args.File;
+        var buffer = new byte[SelectedFile.Size];
+        await SelectedFile.OpenReadStream(5120000).ReadAsync(buffer);
+        var base64String = Convert.ToBase64String(buffer);
+        ImageDataUrl = $"data:image/png;base64,{base64String}";
+    }
+
+}
