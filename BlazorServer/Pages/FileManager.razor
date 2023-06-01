@@ -1,6 +1,8 @@
 ﻿@page "/filemanager"
 @inject IWebHostEnvironment enviroment
 @inject IToastService ToastService
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 
 <PageTitle> FileManager</PageTitle>
@@ -18,6 +20,7 @@
     <div class="m-4 d-flex justify-content-center">
         <div class="btn-group">
             <button type="button" class="btn btn-primary" diabled="@(SelectedFile is null)" @onclick="UploadFile"> Upload </button>
+            <button type="button" class="btn btn-primary" diabled="@(SelectedFile is null)" @onclick="DownloadImage"> Download Image </button>
         </div>
     </div>
 </div>
@@ -47,6 +50,16 @@
             await using FileStream fs = new(Path.Combine(enviroment.WebRootPath + @"\images\", FileName), FileMode.Create);
             await SelectedFile.OpenReadStream(5120000).CopyToAsync(fs);
             ToastService.ShowSuccess($"{FileName} 檔案上載成功!");
+        }
+    }
+
+    private async Task DownloadImage()
+    {
+        if (FileName is not null)
+        {
+            var base64String = ImageDataUrl.Substring(ImageDataUrl.IndexOf(",") + 1);
+            await JSRuntime.InvokeVoidAsync("download", base64String, FileName);
+            ToastService.ShowSuccess($"{FileName} 檔案下載完成!");
         }
     }
 }
