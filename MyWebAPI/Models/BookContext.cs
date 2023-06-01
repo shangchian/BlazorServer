@@ -12,9 +12,19 @@ namespace MyWebAPI.Models
 
         public DbSet<Book> Books { get; set; } = null!;
 
+        public DbSet<Category> Categories { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category { CategoryId = 1, CategoryName = "Computers" },
+                new Category { CategoryId = 2, CategoryName = "Arts" },
+                new Category { CategoryId = 3, CategoryName = "Commics" },
+                new Category { CategoryId = 4, CategoryName = "Cooking" }
+            );
+
             modelBuilder.Entity<Book>().HasData(
                 new Book()
                 {
@@ -23,7 +33,8 @@ namespace MyWebAPI.Models
                     Price = 250,
                     PublishDate = new DateTime(2019, 1, 2),
                     InStock = true,
-                    Description = " Essential Programming Language "
+                    Description = " Essential Programming Language ",
+                    CategoryId = 1
                 },
                 new Book()
                 {
@@ -32,7 +43,8 @@ namespace MyWebAPI.Models
                     Price = 245,
                     PublishDate = new DateTime(2019, 4, 15),
                     InStock = true,
-                    Description = " Telling Arts "
+                    Description = " Telling Arts ",
+                    CategoryId = 1
                 },
                 new Book()
                 {
@@ -41,7 +53,8 @@ namespace MyWebAPI.Models
                     Price = 150,
                     PublishDate = new DateTime(2019, 2, 21),
                     InStock = true,
-                    Description = " Marvel "
+                    Description = " Marvel ",
+                    CategoryId = 1
                 },
                 new Book()
                 {
@@ -50,7 +63,8 @@ namespace MyWebAPI.Models
                     Price = 450,
                     PublishDate = new DateTime(2019, 12, 2),
                     InStock = true,
-                    Description = " The beauty of cook "
+                    Description = " The beauty of cook ",
+                    CategoryId = 1
                 },
                 new Book()
                 {
@@ -59,7 +73,8 @@ namespace MyWebAPI.Models
                     Price = 450,
                     PublishDate = new DateTime(2019, 1, 20),
                     InStock = true,
-                    Description = " Learning how to cook "
+                    Description = " Learning how to cook ",
+                    CategoryId = 1
                 }
             );
         }

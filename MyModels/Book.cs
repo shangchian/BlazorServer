@@ -13,5 +13,9 @@ namespace MyModels
         public DateTime PublishDate { get; set; }
         public bool InStock { get; set; }
         public string? Description { get; set; }    // ?: 代表可為空值
+
+        [Range(1, int.MaxValue, ErrorMessage = "{0} must be between {1} - {2}")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; } = null!;
     }
 }
