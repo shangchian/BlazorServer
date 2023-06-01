@@ -1,4 +1,6 @@
 ﻿@page "/filemanager"
+@inject IWebHostEnvironment enviroment
+@inject IToastService ToastService
 
 
 <PageTitle> FileManager</PageTitle>
@@ -13,12 +15,18 @@
     <div class="m-4 d-flex justify-content-center">
         <InputFile OnChange="@OnChanged"></InputFile>
     </div>
+    <div class="m-4 d-flex justify-content-center">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" diabled="@(SelectedFile is null)" @onclick="UploadFile"> Upload </button>
+        </div>
+    </div>
 </div>
 
 
 @code {
     IBrowserFile? SelectedFile { get; set; }
     public string ImageDataUrl { get; set; } = null!;
+    public string? FileName { get; set; }
 
     private async Task OnChanged(InputFileChangeEventArgs args)
     {
@@ -27,6 +35,18 @@
         await SelectedFile.OpenReadStream(5120000).ReadAsync(buffer);
         var base64String = Convert.ToBase64String(buffer);
         ImageDataUrl = $"data:image/png;base64,{base64String}";
+
+        FileName = SelectedFile.Name;
     }
 
+    private async Task UploadFile()
+    {
+        if (SelectedFile is not null && FileName is not null)
+        {
+            // 要先在 wwwroot/ 建立 images 資料夾，目的要將照片上傳到該資料夾裡
+            await using FileStream fs = new(Path.Combine(enviroment.WebRootPath + @"\images\", FileName), FileMode.Create);
+            await SelectedFile.OpenReadStream(5120000).CopyToAsync(fs);
+            ToastService.ShowSuccess($"{FileName} 檔案上載成功!");
+        }
+    }
 }
